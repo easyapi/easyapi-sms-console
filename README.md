@@ -1,7 +1,7 @@
-# EasyAPI应用检查更新[https://update.easyapi.com](https://update.easyapi.com)
+# EasyAPI短信服务[https://sms.easyapi.com](https://sms.easyapi.com)
 
 ## 项目介绍
-EasyAPI应用检查更新
+EasyAPI短信服务控制台
 
 ## 相关技术和第三方库
 * [Nuxt](https://zh.nuxtjs.org)

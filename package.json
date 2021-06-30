@@ -1,7 +1,7 @@
 {
-  "name": "easyapi-update",
+  "name": "easyapi-sms-console",
   "version": "1.0.0",
-  "description": "EasayAPI Update",
+  "description": "EasayAPI短信服务控制台",
   "author": "EasyAPI <leida@easyapi.com>",
   "private": true,
   "scripts": {
@@ -14,8 +14,8 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
-    "element-plus": "^1.0.2-beta.48",
-    "element-ui": "^2.15.2",
+    "element-plus": "^1.0.2-beta.53",
+    "element-ui": "^2.15.3",
     "js-cookie": "^2.2.1",
     "nuxt": "^2.15.7",
     "vue-quill-editor": "^3.0.6"
@@ -35,10 +35,10 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-promise": ">=5.1.0",
     "eslint-plugin-standard": ">=5.0.0",
-    "eslint-plugin-vue": "^7.11.1",
-    "node-sass": "^6.0.0",
+    "eslint-plugin-vue": "^7.12.1",
+    "node-sass": "^6.0.1",
     "sass-loader": "^10.2.0",
-    "nodemon": "^2.0.7",
-    "prettier": "^2.3.1"
+    "nodemon": "^2.0.8",
+    "prettier": "^2.3.2"
   }
 }

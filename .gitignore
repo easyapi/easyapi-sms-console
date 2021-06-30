@@ -12,6 +12,7 @@ dist
 
 .idea
 package-lock.json
+yarn.lock
 
 # Mac OSX
 .DS_Store
