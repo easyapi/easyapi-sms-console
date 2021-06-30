@@ -11,31 +11,26 @@
         </div>
         <el-divider></el-divider>
         <div class="main-content">
-          <div>
-            <el-button type="primary" class="ea-info-btn" size="mini" @click="createArticle">
-              添加文章
-            </el-button>
+          <div class="overview-top">
+            <div v-for="item in 4" :key="item" class="overview-top-card">
+              <div>
+                <p>2345</p>
+                <p>今日发送数量</p>
+              </div>
+              <div>
+                <el-image
+                  style="width: 80px; height: 80px;border-radius:50%;"
+                  src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
+                  fit="cover"></el-image>
+              </div>
+            </div>
           </div>
-          <el-table
-            :data="articleList"
-            :header-cell-style="{background:'#eef1f6',color:'#606266'}"
-            v-loading="loadingData"
-            element-loading-text="数据正在加载中..."
-          >
-            <template slot="empty">
-              <p>{{tableText}}</p>
-            </template>
-            <el-table-column prop="title" label="标题"></el-table-column>
-            <el-table-column prop="articleCategory.name" label="分类" width="180"></el-table-column>
-            <el-table-column prop="count" label="查看次数" width="180"></el-table-column>
-            <el-table-column prop="addTime" label="发布时间" width="200"></el-table-column>
-            <el-table-column width="200">
-              <template #default="scope">
-                <el-button type="primary" @click="updateArticle(scope.row)" size="mini">编辑</el-button>
-                <el-button @click="deleteArticle(scope.row)" type="danger" size="mini">删除</el-button>
-              </template>
-            </el-table-column>
-          </el-table>
+          <el-radio-group @change="change" v-model="tab" class="overview-tab">
+            <el-radio-button label="day">最近30天</el-radio-button>
+            <el-radio-button label="month">上个月</el-radio-button>
+          </el-radio-group>
+          <div v-show="chartShow" id="RecentlyChart" class="overview-chart"></div>
+          <div v-show="!chartShow" id="monthChart" class="overview-chart"></div>
         </div>
         <Pagination @fatherSize="fatherSize" @fatherCurrent="fatherCurrent" :size="pagination.size"
                     :total-elements="pagination.total" class="paging"></Pagination>
@@ -52,7 +47,6 @@
   import Aside from '../../components/Aside/index.vue'
   import Pagination from '../../components/Pagination/index'
   import Edit from './components/edit'
-  import { getArticleList, deleteArticle } from '../../api/article'
 
   export default {
     name: '',
@@ -64,9 +58,11 @@
     },
     data() {
       return {
+        tab: "day",
+        chartShow: true,
         articleList: [],
         searchItems: [
-          { label: '标题', type: 'input', key: 'title' }
+          {label: '标题', type: 'input', key: 'title'}
         ],
         title: '',
         showHeader: '',
@@ -83,12 +79,165 @@
       return {
         title: '金融专辑 - EasyAPI服务市场',
         meta: [
-          { hid: 'description', name: 'description', content: '服务市场场景化服务' },
-          { hid: 'keyword', name: 'keyword', content: '服务市场场景化服务' }
+          {hid: 'description', name: 'description', content: '服务市场场景化服务'},
+          {hid: 'keyword', name: 'keyword', content: '服务市场场景化服务'}
         ]
       }
     },
     methods: {
+      change(e) {
+        if (e == "day") {
+          this.chartShow = true
+        } else if (e == "month") {
+          this.chartShow = false
+        }
+      },
+      /**
+       * 获取最近30天图表
+       */
+      getRecentlyChart() {
+        let RecentlyChart = this.$echarts.init(document.getElementById('RecentlyChart'))
+
+        RecentlyChart.setOption({
+          tooltip: {
+            trigger: 'axis'
+          },
+          grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+          },
+          xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+          },
+          yAxis: {
+            type: 'value'
+          },
+          series: [
+            {
+              name: '邮件营销',
+              type: 'line',
+              stack: '总量',
+              data: [120, 132, 101, 134, 90, 230, 210]
+            },
+            {
+              name: '联盟广告',
+              type: 'line',
+              stack: '总量',
+              data: [220, 182, 191, 234, 290, 330, 310]
+            },
+            {
+              name: '视频广告',
+              type: 'line',
+              stack: '总量',
+              data: [150, 232, 201, 154, 190, 330, 410]
+            },
+            {
+              name: '直接访问',
+              type: 'line',
+              stack: '总量',
+              data: [320, 332, 301, 334, 390, 330, 320]
+            },
+            {
+              name: '搜索引擎',
+              type: 'line',
+              stack: '总量',
+              data: [820, 932, 901, 934, 1290, 1330, 1320]
+            }
+          ]
+        })
+      },
+      /**
+       * 获取上个月图表
+       */
+      getMonthChart() {
+        let monthChart = this.$echarts.init(document.getElementById('monthChart'))
+
+        monthChart.setOption({
+          title: {
+            text: '未来一周气温变化',
+            subtext: '纯属虚构'
+          },
+          tooltip: {
+            trigger: 'axis'
+          },
+          legend: {
+            data: ['最高气温', '最低气温']
+          },
+          toolbox: {
+            show: true,
+            feature: {
+              dataZoom: {
+                yAxisIndex: 'none'
+              },
+              dataView: {readOnly: false},
+              magicType: {type: ['line', 'bar']},
+              restore: {},
+              saveAsImage: {}
+            }
+          },
+          xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+          },
+          yAxis: {
+            type: 'value',
+            axisLabel: {
+              formatter: '{value} °C'
+            }
+          },
+          series: [
+            {
+              name: '最高气温',
+              type: 'line',
+              data: [10, 11, 13, 11, 12, 12, 9],
+              markPoint: {
+                data: [
+                  {type: 'max', name: '最大值'},
+                  {type: 'min', name: '最小值'}
+                ]
+              },
+              markLine: {
+                data: [
+                  {type: 'average', name: '平均值'}
+                ]
+              }
+            },
+            {
+              name: '最低气温',
+              type: 'line',
+              data: [1, -2, 2, 5, 3, 2, 0],
+              markPoint: {
+                data: [
+                  {name: '周最低', value: -2, xAxis: 1, yAxis: -1.5}
+                ]
+              },
+              markLine: {
+                data: [
+                  {type: 'average', name: '平均值'},
+                  [{
+                    symbol: 'none',
+                    x: '90%',
+                    yAxis: 'max'
+                  }, {
+                    symbol: 'circle',
+                    label: {
+                      position: 'start',
+                      formatter: '最大值'
+                    },
+                    type: 'max',
+                    name: '最高点'
+                  }]
+                ]
+              }
+            }
+          ]
+        })
+      },
       /**
        * 获取文章列表
        */
@@ -103,20 +252,6 @@
           size: this.pagination.size,
           type: '文章'
         }
-        getArticleList(params, this).then(res => {
-          if (res.data.code === 0) {
-            this.loadingData = false
-            this.tableText = '暂无数据'
-            this.articleList = []
-            this.pagination.total = 0
-          } else {
-            this.loadingData = false
-            this.articleList = res.data.content
-            this.pagination.total = Number(res.data.totalElements)
-          }
-        }).catch(error => {
-          console.log(error)
-        })
       },
       /**
        * 添加文章
@@ -165,7 +300,7 @@
       },
       search(item) {
         console.log(1111, item)
-        let { title } = item
+        let {title} = item
         this.title = title
         this.getArticleList()
       },
@@ -174,17 +309,50 @@
 
       },
       event(item) {
-        let { title } = item
+        let {title} = item
         this.title = title
       }
     },
     mounted() {
       this.getArticleList()
+      this.getRecentlyChart()
+      this.getMonthChart()
       this.showHeader = this.comsys.showHeader
     }
   }
 </script>
 
 <style lang="scss">
+  .overview-top {
+    display: flex;
+    flex-wrap: wrap;
 
+    .overview-top-card {
+      width: 280px;
+      height: 120px;
+      margin-right: 40px;
+      padding: 20px;
+      border: 1px solid #DCDFE6;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      p:nth-child(1) {
+        font-size: 30px;
+      }
+
+      p:nth-child(2) {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .overview-tab {
+    margin: 30px 0 0 0;
+  }
+
+  .overview-chart {
+    width: 100%;
+    height: 400px;
+  }
 </style>

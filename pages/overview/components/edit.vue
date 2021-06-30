@@ -60,8 +60,6 @@
 
 <script>
   import {getQiniuKey, getQiniuToken} from '../../../api/qiniu'
-  import {getArticleCategoryList} from '../../../api/article-category'
-  import {createArticle, updateArticle} from '../../../api/article'
 
   const toolbarOptions = [
     [{header: [1, 2, 3, 4, 5, 6, false]}],

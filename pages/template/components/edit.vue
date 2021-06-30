@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    :close-on-click-modal = "false"
+    :close-on-click-modal="false"
     :title="title"
     :visible.sync="dialogVisible"
     width="50%">
@@ -60,8 +60,6 @@
 
 <script>
   import {getQiniuKey, getQiniuToken} from '../../../api/qiniu'
-  import {getArticleCategoryList} from '../../../api/article-category'
-  import {createArticle, updateArticle} from '../../../api/article'
 
   const toolbarOptions = [
     [{header: [1, 2, 3, 4, 5, 6, false]}],
@@ -214,7 +212,7 @@
 
 <style lang="scss">
   .ql-container {
-    -webkit-box-sizing: border-box;
+     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 13px;
@@ -224,14 +222,14 @@
   }
 
   .ql-editor-class {
-    -webkit-box-sizing: border-box;
+     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     line-height: 1.42;
     height: 100%;
     outline: none;
     padding: 0 !important;
     tab-size: 4;
-    -moz-tab-size: 4;
+     -moz-tab-size: 4;
     text-align: left;
     word-wrap: break-word;
   }

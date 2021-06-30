@@ -24,7 +24,7 @@ module.exports = {
   plugins: [
     '@/plugins/element-ui',
     '@/plugins/axios',
-    {src: '@/plugins/nuxt-quill-plugin', ssr: false},
+    '@/plugins/echarts',
     {src: '@/plugins/commom.js', ssr: false}
   ],
   /*

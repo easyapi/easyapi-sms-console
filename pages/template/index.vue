@@ -68,7 +68,7 @@
   import Aside from '../../components/Aside/index.vue'
   import Pagination from '../../components/Pagination/index'
   import Edit from './components/edit'
-  import {getArticleList, deleteArticle} from '../../api/article'
+  import {getSmsTemplateList} from "../../api/sms-template"
 
   export default {
     name: '',
@@ -119,7 +119,7 @@
           size: this.pagination.size,
           type: '文章'
         }
-        getArticleList(params, this).then(res => {
+        getSmsTemplateList(params, this).then(res => {
           if (res.data.code === 0) {
             this.loadingData = false
             this.tableText = '暂无数据'
@@ -209,7 +209,7 @@
     .template-card {
       width: 350px;
       height: 400px;
-      border: 1px solid #ebeef5;
+      border: 1px solid #DCDFE6;
       margin-right: 40px;
       margin-bottom: 20px;
 
@@ -217,13 +217,13 @@
         width: 100%;
         height: 50px;
         padding: 10px;
-        border-bottom: 1px solid #ebeef5;
+        border-bottom: 1px solid #DCDFE6;
       }
 
       .template-card-content {
         width: 100%;
         height: 300px;
-        border-bottom: 1px solid #ebeef5;
+        border-bottom: 1px solid #DCDFE6;
         position: relative;
 
         .types {
