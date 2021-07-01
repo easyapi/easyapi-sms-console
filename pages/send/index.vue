@@ -65,7 +65,12 @@
                   <span>未选取文件</span>
                 </div>
               </el-tab-pane>
-              <el-tab-pane label="手动输入">手动输入</el-tab-pane>
+              <el-tab-pane label="手动输入">
+                <Edit_table
+                  ref="editTable"
+                  :tableData="editData"
+                ></Edit_table>
+              </el-tab-pane>
             </el-tabs>
           </div>
           <div class="send-bottom">
@@ -86,16 +91,26 @@
 <script>
   import Header from '../../components/Header/index.vue'
   import Aside from '../../components/Aside/index.vue'
+  import Edit_table from "./components/index";
 
   export default {
     name: '',
     components: {
+      Edit_table,
       Header,
       Aside,
     },
     data() {
       return {
         showHeader: '',
+        disable: false,   //控制表格是否可编辑
+        editData: [
+          {
+            mobile: '',
+            name: '',
+            address: ''
+          },
+        ],
         exampleData: [
           {
             mobile: '135XXXXXXXX',
