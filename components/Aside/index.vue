@@ -30,6 +30,16 @@
             title: '短信收件箱',
             path: '/Inbox',
             icon: 'el-icon-s-help'
+          },
+          {
+            title: '短信发送',
+            path: '/send',
+            icon: 'el-icon-s-help'
+          },
+          {
+            title: '计费日志',
+            path: '/billing',
+            icon: 'el-icon-s-help'
           }
         ]
       }

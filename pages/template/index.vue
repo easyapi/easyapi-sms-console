@@ -9,7 +9,7 @@
             <b>短信模板</b>
           </div>
           <div>
-            <el-button type="primary" class="ea-info-btn" size="mini" @click="createArticle">
+            <el-button type="primary" class="ea-info-btn" size="mini" @click="createTemplate">
               创建新模板
             </el-button>
           </div>
@@ -56,7 +56,7 @@
         <Pagination @fatherSize="fatherSize" @fatherCurrent="fatherCurrent" :size="pagination.size"
                     :total-elements="pagination.total" class="paging"></Pagination>
         <div style="clear: both"></div>
-        <Edit ref="editArticle"></Edit>
+        <Edit ref="editTemplate"></Edit>
       </div>
     </div>
   </div>
@@ -137,10 +137,9 @@
       /**
        * 添加文章
        */
-      createArticle() {
-        this.$refs.editArticle.dialogVisible = true
-        this.$refs.editArticle.title = '添加文章'
-        this.$refs.editArticle.articleForm = this.$options.data()
+      createTemplate() {
+        this.$refs.editTemplate.dialogVisible = true
+        this.$refs.editTemplate.title = '创建新模板'
       },
       /**
        * 修改文章
