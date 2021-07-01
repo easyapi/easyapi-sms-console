@@ -42,7 +42,7 @@
                 </div>
                 <div class="bottom clearfix">
                   <div>
-                    <el-button type="primary" plain size="mini">编辑</el-button>
+                    <el-button @click="updateTemplate(item)" type="primary" plain size="mini">编辑</el-button>
                     <el-button type="success" plain size="mini">发送</el-button>
                   </div>
                   <div>
@@ -123,21 +123,22 @@
         })
       },
       /**
-       * 添加文章
+       * 添加新模板
        */
       createTemplate() {
         this.$refs.editTemplate.dialogVisible = true
         this.$refs.editTemplate.title = '创建新模板'
       },
       /**
-       * 修改文章
+       * 编辑模板
        */
-      updateArticle(row) {
-        this.$refs.editArticle.dialogVisible = true
-        this.$refs.editArticle.title = '编辑文章'
-        this.$refs.editArticle.articleForm = row
-        this.$refs.editArticle.articleId = row.articleId
-        this.$refs.editArticle.articleForm.articleCategoryId = row.articleCategory.articleCategoryId
+      updateTemplate(item) {
+        console.log(item)
+        this.$refs.editTemplate.dialogVisible = true
+        this.$refs.editTemplate.title = '编辑模板'
+        this.$refs.editTemplate.templateForm = item
+        // this.$refs.editTemplate.articleId = row.articleId
+        // this.$refs.editTemplate.articleForm.articleCategoryId = row.articleCategory.articleCategoryId
       },
       //删除文章
       deleteArticle(row) {
@@ -267,9 +268,7 @@
         align-items: center;
       }
     }
-
   }
-
 
   .f12 {
     font-size: 12px;

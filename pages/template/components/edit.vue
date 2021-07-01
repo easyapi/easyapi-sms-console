@@ -13,18 +13,25 @@
           type="textarea"
           :rows="8"
           placeholder="请输入短信内容"
-          v-model="textarea">
+          v-model="templateForm.content">
         </el-input>
       </el-form-item>
       <el-form-item>
         <div class="dynamicTags">
-          <el-select v-model="value" placeholder="请选择签名">
+          <el-select
+            v-model="value"
+            placeholder="请选择"
+            clearable
+            filterable
+            @blur="selectBlur"
+            @clear="selectClear"
+            @change="selectChange"
+          >
             <el-option
-              v-for="item in options"
-              :key="item.value"
+              v-for="(item,index) in options"
+              :key="index"
               :label="item.label"
-              :value="item.value">
-            </el-option>
+              :value="item.value"/>
           </el-select>
           <el-tag
             :key="tag"
@@ -62,6 +69,8 @@
           title: "",
           textarea: "",
         },
+        value: '',
+        options: [],
         dynamicTags: ['标签一'],
       }
     },
@@ -73,6 +82,26 @@
       //移除标签
       handleClose(tag) {
         this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+      },
+      selectBlur(e) {
+        console.log(e, 111)
+        // 意见类型
+        if (e.target.value !== '') {
+          this.value = e.target.value;
+          let obj = {}
+          obj.value = e.target.value
+          obj.label = e.target.value
+          this.options.push(obj)
+          this.$forceUpdate()   // 强制更新
+        }
+      },
+      selectClear() {
+        this.value = ''
+        this.$forceUpdate()
+      },
+      selectChange(val) {
+        this.value = val
+        this.$forceUpdate()
       },
     }
   }
