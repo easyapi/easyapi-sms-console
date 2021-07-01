@@ -35,7 +35,6 @@
         <Pagination @fatherSize="fatherSize" @fatherCurrent="fatherCurrent" :size="pagination.size"
                     :total-elements="pagination.total" class="paging"></Pagination>
         <div style="clear: both"></div>
-        <Edit ref="editArticle"></Edit>
       </div>
     </div>
   </div>
@@ -46,7 +45,6 @@
   import Header from '../../components/Header/index.vue'
   import Aside from '../../components/Aside/index.vue'
   import Pagination from '../../components/Pagination/index'
-  import Edit from './components/edit'
 
   export default {
     name: '',
@@ -54,7 +52,6 @@
       Header,
       Aside,
       Pagination,
-      Edit
     },
     data() {
       return {
@@ -88,8 +85,14 @@
       change(e) {
         if (e == "day") {
           this.chartShow = true
+          this.$nextTick(() => {
+            this.getRecentlyChart()
+          })
         } else if (e == "month") {
           this.chartShow = false
+          this.$nextTick(() => {
+            this.getMonthChart()
+          })
         }
       },
       /**
@@ -316,7 +319,7 @@
     mounted() {
       this.getArticleList()
       this.getRecentlyChart()
-      this.getMonthChart()
+      // this.getMonthChart()
       this.showHeader = this.comsys.showHeader
     }
   }

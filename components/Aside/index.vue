@@ -27,8 +27,8 @@
             icon: 'el-icon-s-help'
           },
           {
-            title: '文章分类',
-            path: '/category',
+            title: '短信收件箱',
+            path: '/Inbox',
             icon: 'el-icon-s-help'
           }
         ]
