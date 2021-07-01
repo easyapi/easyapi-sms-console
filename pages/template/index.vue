@@ -17,27 +17,27 @@
         <el-divider></el-divider>
         <div class="main-content">
           <div class="item-list">
-            <div class="item-list-card" v-for="item in 10" :key="item" :span="6">
+            <div class="item-list-card" v-for="item in templateList" :key="item" :span="6">
               <div class="template-card">
                 <div class="header clearfix">
                   <span>•</span>
-                  <span>卡片名称</span>
+                  <span>{{item.title}}</span>
                 </div>
                 <div class="template-card-content">
-                  <div class="types types-df">
+                  <div v-if="item.state==0" class="types types-df">
                     <span>审核中</span>
                   </div>
-                  <div class="types types-success">
+                  <div v-if="item.state==1" class="types types-success">
                     <span>审核成功</span>
                   </div>
-                  <div class="types types-wrong">
+                  <div v-if="item.state==-1" class="types types-wrong">
                     <span>未<br/>通过</span>
                   </div>
                   <p class="color-gray f12 t-c time">短信/彩信<br>最后编辑
-                    <time>2021-06-30 14:12:59</time>
+                    <time>{{item.addTime}}</time>
                   </p>
                   <div class="repbox">
-                    提示：由于大家设备不同，会遇到部分特殊符号不显示哈~ 圆圈符号包含了有100多个各种各样的符号，包含有有大的、小的、空心、实心、带颜色、类似圆形的等符号
+                    {{item.signature}}{{item.content}}
                   </div>
                 </div>
                 <div class="bottom clearfix">
@@ -80,19 +80,13 @@
     },
     data() {
       return {
-        articleList: [],
-        searchItems: [
-          {label: '标题', type: 'input', key: 'title'}
-        ],
-        title: '',
+        templateList: [],
         showHeader: '',
         pagination: {
           page: 1,
           size: 12,
           total: 0
         },
-        loadingData: false,
-        tableText: ''
       }
     },
     head() {
@@ -106,28 +100,22 @@
     },
     methods: {
       /**
-       * 获取文章列表
+       * 获取短信模板列表
        */
-      getArticleList() {
-        this.loadingData = true
+      getSmsTemplateList() {
         let page = this.pagination.page - 1
         let params = {
-          title: this.title,
-          appKey: sessionStorage.getItem('appKey'),
-          appSecret: sessionStorage.getItem('appSecret'),
+          appKey: "db8b8b8202f2c8c7",
+          appSecret: "99d2703f5fbb160c",
           page: page,
           size: this.pagination.size,
-          type: '文章'
         }
         getSmsTemplateList(params, this).then(res => {
           if (res.data.code === 0) {
-            this.loadingData = false
-            this.tableText = '暂无数据'
-            this.articleList = []
+            this.templateList = []
             this.pagination.total = 0
           } else {
-            this.loadingData = false
-            this.articleList = res.data.content
+            this.templateList = res.data.content
             this.pagination.total = Number(res.data.totalElements)
           }
         }).catch(error => {
@@ -172,29 +160,15 @@
       //分页
       fatherSize(data) {
         this.pagination.size = data
-        this.getArticleList()
+        this.getSmsTemplateList()
       },
       fatherCurrent(data) {
         this.pagination.page = data
-        this.getArticleList()
+        this.getSmsTemplateList()
       },
-      search(item) {
-        console.log(1111, item)
-        let {title} = item
-        this.title = title
-        this.getArticleList()
-      },
-      reset(item) {
-        console.log(1111, item)
-
-      },
-      event(item) {
-        let {title} = item
-        this.title = title
-      }
     },
     mounted() {
-      this.getArticleList()
+      this.getSmsTemplateList()
       this.showHeader = this.comsys.showHeader
     }
   }
@@ -265,6 +239,7 @@
           padding: 10px;
           display: inline-block;
           border-radius: 10px;
+          font-size: 14px;
           width: 54%;
           float: right;
           margin-right: 30px;
