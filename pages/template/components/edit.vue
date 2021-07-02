@@ -4,22 +4,22 @@
     :title="title"
     :visible.sync="dialogVisible"
     width="30%">
-    <el-form ref="templateForm" :model="templateForm" label-width="80px">
+    <el-form ref="childForm" :model="childForm" label-width="80px">
       <el-form-item label="模板标题">
-        <el-input v-model="templateForm.title" placeholder="请输入标题"></el-input>
+        <el-input v-model="childForm.title" placeholder="请输入标题"></el-input>
       </el-form-item>
       <el-form-item label="模板正文">
         <el-input
           type="textarea"
           :rows="8"
           placeholder="请输入短信内容"
-          v-model="templateForm.content">
+          v-model="childForm.content">
         </el-input>
       </el-form-item>
       <el-form-item>
         <div class="dynamicTags">
           <el-select
-            v-model="value"
+            v-model="childForm.signature"
             placeholder="请选择"
             clearable
             filterable
@@ -53,23 +53,26 @@
     </el-form>
     <span slot="footer" class="dialog-footer">
     <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="confirm('articleForm')">确 定</el-button>
+    <el-button type="primary" @click="confirm('childForm')">确 定</el-button>
   </span>
   </el-dialog>
 </template>
 
 <script>
+  import {createSmsTemplate, updateSmsTemplate, getSmsSignatureList} from "../../../api/sms-template"
+
   export default {
     name: 'addTemplate',
     data() {
       return {
         dialogVisible: false,
         title: "",
-        templateForm: {
+        smsTemplateId: "",
+        childForm: {
           title: "",
-          textarea: "",
+          content: "",
+          signature: ""
         },
-        value: '',
         options: [],
         dynamicTags: ['标签一'],
       }
@@ -79,12 +82,50 @@
     },
     computed: {},
     methods: {
+      //获取签名列表
+      getSmsSignatureList() {
+        let params = {
+          appKey: "db8b8b8202f2c8c7",
+          appSecret: "99d2703f5fbb160c",
+        }
+        getSmsSignatureList(params, this).then(res => {
+
+        })
+      },
       //移除标签
       handleClose(tag) {
         this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
       },
+      confirm(formName) {
+        this.$refs[formName].validate(valid => {
+          if (valid) {
+            let data = {
+              ...this.childForm,
+              appKey: "db8b8b8202f2c8c7",
+              appSecret: "99d2703f5fbb160c",
+            }
+            // data.signature = "【" + this.childForm.signature + "】"
+            console.log(data, 111)
+            if (this.title === "创建新模板") {
+              createSmsTemplate(data, this).then(res => {
+                console.log(data)
+                return
+                if (res.data.code === 1) {
+                  this.$message.success('添加成功!');
+                  this.$parent.getSmsTemplateList();
+                  this.dialogVisible = false;
+                  this.$refs[formName].resetFields()
+                }
+              })
+            } else if (this.title === "编辑模板") {
+              updateSmsTemplate(this.smsTemplateId, data, this).then(res => {
+
+              })
+            }
+          }
+        })
+      },
       selectBlur(e) {
-        console.log(e, 111)
         // 意见类型
         if (e.target.value !== '') {
           this.value = e.target.value;

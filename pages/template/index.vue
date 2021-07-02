@@ -46,7 +46,7 @@
                     <el-button type="success" plain size="mini">发送</el-button>
                   </div>
                   <div>
-                    <el-button type="info" plain size="mini">删除</el-button>
+                    <el-button type="info" plain size="mini" @click="deleteTemplate(item)">删除</el-button>
                   </div>
                 </div>
               </div>
@@ -68,7 +68,7 @@
   import Aside from '../../components/Aside/index.vue'
   import Pagination from '../../components/Pagination/index'
   import Edit from './components/edit'
-  import {getSmsTemplateList} from "../../api/sms-template"
+  import {getSmsTemplateList, deleteSmsTemplate} from "../../api/sms-template"
 
   export default {
     name: '',
@@ -128,6 +128,8 @@
       createTemplate() {
         this.$refs.editTemplate.dialogVisible = true
         this.$refs.editTemplate.title = '创建新模板'
+        this.$refs.editTemplate.templateForm = this.$options.data()
+        this.$refs.editTemplate.getSmsSignatureList()
       },
       /**
        * 编辑模板
@@ -136,20 +138,21 @@
         console.log(item)
         this.$refs.editTemplate.dialogVisible = true
         this.$refs.editTemplate.title = '编辑模板'
-        this.$refs.editTemplate.templateForm = item
-        // this.$refs.editTemplate.articleId = row.articleId
+        this.$refs.editTemplate.childForm = item
+        this.$refs.editTemplate.smsTemplateId = item.smsTemplateId
+        this.$refs.editTemplate.getSmsSignatureList()
         // this.$refs.editTemplate.articleForm.articleCategoryId = row.articleCategory.articleCategoryId
       },
-      //删除文章
-      deleteArticle(row) {
+      //删除模板
+      deleteTemplate(item) {
         this.$confirm('您确定要删除该文章吗?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          deleteArticle(row.articleId, this).then(res => {
+          deleteSmsTemplate(item.smsTemplateId, this).then(res => {
             if (res.data.code === 1) {
-              this.getArticleList()
+              this.getSmsTemplateList()
               this.$message({
                 type: 'success',
                 message: '删除成功!'
@@ -201,7 +204,6 @@
         position: relative;
 
         .types {
-          background: #e6a23c;
           position: absolute;
           right: 20px;
           top: -1px;
@@ -213,6 +215,18 @@
             font-size: 14px;
             color: #fff;
           }
+        }
+
+        .types-df {
+          background: #e6a23c;
+        }
+
+        .types-success {
+          background: #48c249;
+        }
+
+        .types-wrong {
+          background: #909399;
         }
 
         .time {

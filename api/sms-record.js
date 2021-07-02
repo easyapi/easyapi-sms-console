@@ -1,7 +1,7 @@
 import {serviceUrl} from './api'
 
 /**
- * 获取短信模板列表
+ * 获取短信记录
  *
  * @see https://www.easyai.com
  */

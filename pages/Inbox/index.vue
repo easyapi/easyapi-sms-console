@@ -12,7 +12,7 @@
         <el-divider></el-divider>
         <div class="main-content">
           <el-table
-            :data="tableData"
+            :data="smsReceiveList"
             style="width: 100%">
             <el-table-column
               prop="date"
@@ -53,6 +53,7 @@
   import Header from '../../components/Header/index.vue'
   import Aside from '../../components/Aside/index.vue'
   import Pagination from '../../components/Pagination/index'
+  import {getSmsReceiveList} from '../../api/sms-receive'
 
   export default {
     name: '',
@@ -63,12 +64,7 @@
     },
     data() {
       return {
-        tab: "day",
-        chartShow: true,
-        articleList: [],
-        searchItems: [
-          {label: '标题', type: 'input', key: 'title'}
-        ],
+        smsReceiveList: [],
         title: '',
         showHeader: '',
         pagination: {
@@ -76,8 +72,6 @@
           size: 12,
           total: 0
         },
-        loadingData: false,
-        tableText: ''
       }
     },
     head() {
@@ -93,17 +87,23 @@
       /**
        * 获取短信收件箱列表
        */
-      getArticleList() {
-        this.loadingData = true
+      getSmsReceiveList() {
         let page = this.pagination.page - 1
-        let params = {
-          title: this.title,
-          appKey: sessionStorage.getItem('appKey'),
-          appSecret: sessionStorage.getItem('appSecret'),
+        let params = {appKey: "db8b8b8202f2c8c7",
+          appSecret: "99d2703f5fbb160c",
+
           page: page,
           size: this.pagination.size,
-          type: '文章'
         }
+        getSmsReceiveList(params, this).then(res => {
+          if (res.data.code === 1) {
+            this.smsReceiveList = res.data.content
+            this.pagination.total = Number(res.data.totalElements)
+          }else{
+            this.smsReceiveList = []
+            this.pagination.total = 0
+          }
+        })
       },
       /**
        * 添加文章
@@ -132,7 +132,7 @@
         }).then(() => {
           deleteArticle(row.articleId, this).then(res => {
             if (res.data.code === 1) {
-              this.getArticleList()
+              this.getSmsReceiveList()
               this.$message({
                 type: 'success',
                 message: '删除成功!'
@@ -144,17 +144,17 @@
       //分页
       fatherSize(data) {
         this.pagination.size = data
-        this.getArticleList()
+        this.getSmsReceiveList()
       },
       fatherCurrent(data) {
         this.pagination.page = data
-        this.getArticleList()
+        this.getSmsReceiveList()
       },
       search(item) {
         console.log(1111, item)
         let {title} = item
         this.title = title
-        this.getArticleList()
+        this.getSmsReceiveList()
       },
       reset(item) {
         console.log(1111, item)
@@ -166,7 +166,7 @@
       }
     },
     mounted() {
-      this.getArticleList()
+      this.getSmsReceiveList()
       // this.getMonthChart()
       this.showHeader = this.comsys.showHeader
     }

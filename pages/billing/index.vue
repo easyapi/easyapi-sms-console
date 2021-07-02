@@ -12,10 +12,10 @@
         <el-divider></el-divider>
         <div class="main-content">
           <el-table
-            :data="tableData"
+            :data="smsSummayList"
             style="width: 100%">
             <el-table-column
-              prop="date"
+              prop="addTime"
               label="日期">
             </el-table-column>
             <el-table-column
@@ -27,15 +27,15 @@
               label="计费">
             </el-table-column>
             <el-table-column
-              prop="address"
+              prop="mobile"
               label="号码">
             </el-table-column>
             <el-table-column
-              prop="address"
+              prop="smsTemplate.signature"
               label="签名">
             </el-table-column>
             <el-table-column
-              prop="address"
+              prop="content"
               label="内容">
             </el-table-column>
           </el-table>
@@ -53,6 +53,7 @@
   import Header from '../../components/Header/index.vue'
   import Aside from '../../components/Aside/index.vue'
   import Pagination from '../../components/Pagination/index'
+  import {getSmsRecordList} from '../../api/sms-record'
 
   export default {
     name: '',
@@ -63,12 +64,7 @@
     },
     data() {
       return {
-        tab: "day",
-        chartShow: true,
-        articleList: [],
-        searchItems: [
-          {label: '标题', type: 'input', key: 'title'}
-        ],
+        smsSummayList: [],
         title: '',
         showHeader: '',
         pagination: {
@@ -76,8 +72,6 @@
           size: 12,
           total: 0
         },
-        loadingData: false,
-        tableText: ''
       }
     },
     head() {
@@ -93,17 +87,23 @@
       /**
        * 获取短信收件箱列表
        */
-      getArticleList() {
-        this.loadingData = true
+      getSmsRecordList() {
         let page = this.pagination.page - 1
         let params = {
-          title: this.title,
-          appKey: sessionStorage.getItem('appKey'),
-          appSecret: sessionStorage.getItem('appSecret'),
+          appKey: "db8b8b8202f2c8c7",
+          appSecret: "99d2703f5fbb160c",
           page: page,
           size: this.pagination.size,
-          type: '文章'
         }
+        getSmsRecordList(params, this).then(res => {
+          if (res.data.code === 1) {
+            this.smsSummayList = res.data.content
+            this.pagination.total = Number(res.data.totalElements)
+          } else {
+            this.smsSummayList = []
+            this.pagination.total = 0
+          }
+        })
       },
       /**
        * 添加文章
@@ -123,38 +123,20 @@
         this.$refs.editArticle.articleId = row.articleId
         this.$refs.editArticle.articleForm.articleCategoryId = row.articleCategory.articleCategoryId
       },
-      //删除文章
-      deleteArticle(row) {
-        this.$confirm('您确定要删除该文章吗?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          deleteArticle(row.articleId, this).then(res => {
-            if (res.data.code === 1) {
-              this.getArticleList()
-              this.$message({
-                type: 'success',
-                message: '删除成功!'
-              })
-            }
-          })
-        })
-      },
       //分页
       fatherSize(data) {
         this.pagination.size = data
-        this.getArticleList()
+        this.getSmsRecordList()
       },
       fatherCurrent(data) {
         this.pagination.page = data
-        this.getArticleList()
+        this.getSmsRecordList()
       },
       search(item) {
         console.log(1111, item)
         let {title} = item
         this.title = title
-        this.getArticleList()
+        this.getSmsRecordList()
       },
       reset(item) {
         console.log(1111, item)
@@ -166,8 +148,7 @@
       }
     },
     mounted() {
-      this.getArticleList()
-      // this.getMonthChart()
+      this.getSmsRecordList()
       this.showHeader = this.comsys.showHeader
     }
   }

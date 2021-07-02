@@ -6,7 +6,16 @@ import {serviceUrl} from './api'
  * @see https://www.easyai.com
  */
 export const getSmsTemplateList = (params, context) => {
-  return context.$axios.get(`${serviceUrl}/sms/templates`, {params: {...params}})
+    return context.$axios.get(`${serviceUrl}/sms/templates`, {params: {...params}})
+  };
+
+/**
+ * 获取短信签名列表
+ *
+ * @see https://www.easyai.com
+ */
+export const getSmsSignatureList = (params, context) => {
+  return context.$axios.get(`${serviceUrl}/sms/signatures`, {params: {...params}})
 };
 
 

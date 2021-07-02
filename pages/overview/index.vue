@@ -45,6 +45,7 @@
   import Header from '../../components/Header/index.vue'
   import Aside from '../../components/Aside/index.vue'
   import Pagination from '../../components/Pagination/index'
+  import {getSmsSummayList} from '../../api/sms-summary'
 
   export default {
     name: '',
@@ -82,6 +83,15 @@
       }
     },
     methods: {
+      getSmsSummayList() {
+        let params = {
+          appKey: "db8b8b8202f2c8c7",
+          appSecret: "99d2703f5fbb160c",
+        }
+        getSmsSummayList(params,this).then(res => {
+
+        })
+      },
       change(e) {
         if (e == "day") {
           this.chartShow = true
@@ -317,6 +327,7 @@
       }
     },
     mounted() {
+      this.getSmsSummayList()
       this.getArticleList()
       this.getRecentlyChart()
       // this.getMonthChart()
