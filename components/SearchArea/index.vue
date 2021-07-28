@@ -1,18 +1,18 @@
 <template>
   <div :class="allShow ? 'search-area all-show' : 'search-area'">
     <el-row>
-      <SearchItem v-for='(item, index) in searchItems' :key="index + (item.label || 'a')" :item='item'
-                  v-show='item.show' :allShow='allShow' @event='event' @open='open' @search='search' @reset='reset'
-                  :ref='item.key' />
+      <Item v-for='(item, index) in items' :key="index + (item.label || 'a')" :item='item'
+            v-show='item.show' :allShow='allShow' @event='event' @open='open' @search='search' @reset='reset'
+            :ref='item.key' />
     </el-row>
   </div>
 </template>
 <script>
-import SearchItem from './item'
+import Item from './item'
 
 export default {
   props: {
-    searchItems: {
+    items: {
       type: Array,
       default: []
     }
@@ -26,7 +26,7 @@ export default {
       }
     }
   },
-  components: { SearchItem },
+  components: { Item },
   created() {
   },
   mounted() {
@@ -42,7 +42,7 @@ export default {
     },
     search() {
       let obj = {}
-      this.searchItems.map(item => {
+      this.items.map(item => {
         if (item.value) {
           obj[item.key] = item.value
         }
@@ -50,9 +50,9 @@ export default {
       this.$emit('search', obj)
     },
     reset() {
-      let searchItems = this.searchItems
+      let items = this.items
       let doms = []
-      searchItems.map(item => {
+      items.map(item => {
         if (item.key) {
           let dom = this.$refs[item.key]
           doms.push(dom)
@@ -66,10 +66,10 @@ export default {
           dom.reset()
         }
       })
-      searchItems.forEach(item => {
+      items.forEach(item => {
         item.value = null
       })
-      this.searchItems = searchItems
+      this.items = items
     },
     open() {
       this.allShow = !this.allShow
@@ -77,7 +77,7 @@ export default {
     },
     event(item) {
       let obj = {}
-      this.searchItems.map(item => {
+      this.items.map(item => {
         if (item.value) {
           obj[item.key] = item.value
         }
@@ -85,28 +85,28 @@ export default {
       this.$emit('event', obj)
     },
     setSearchItems() {
-      let { searchItems, innerWidth, btns } = this
-      let index = searchItems.findIndex(item => {
+      let { items, innerWidth, btns } = this
+      let index = items.findIndex(item => {
         return item.type == 'btns'
       })
       if (index != -1) {
-        searchItems.splice(index, 1)
+        items.splice(index, 1)
       }
       let width = 0
       if (innerWidth >= 1600) {
-        searchItems.splice(3, 0, { type: 'btns' })
+        items.splice(3, 0, { type: 'btns' })
         width = 6
       } else if (innerWidth >= 992) {
-        searchItems.splice(2, 0, { type: 'btns' })
+        items.splice(2, 0, { type: 'btns' })
         width = 8
       } else {
-        searchItems.splice(1, 0, { type: 'btns' })
+        items.splice(1, 0, { type: 'btns' })
         width = 12
       }
 
-      searchItems.forEach((item, index) => {
+      items.forEach((item, index) => {
         if (item.size == 'large') {
-          let befores = searchItems.slice(0, index)
+          let befores = items.slice(0, index)
           let beforeWidth = befores.reduce((a, b) => {
             return a + (b.width || width)
           }, 0)
@@ -129,7 +129,7 @@ export default {
           }
         }
       })
-      this.searchItems = searchItems
+      this.items = items
     }
   }
 }

@@ -9,7 +9,7 @@
         <el-select v-if="item.type === 'select'" v-model='item.value'
                    :placeholder="item.placeholder || '请选择' + item.label"
                    clearable>
-          <el-option v-for='(sitem, sindex) in selectItems' :key='sindex + sitem.value' :value='sitem.value'>
+          <el-option v-for='(sitem, sindex) in items' :key='sindex + sitem.value' :value='sitem.value'>
             {{ sitem.label }}
           </el-option>
         </el-select>
@@ -33,14 +33,14 @@
 export default {
   data() {
     return {
-      selectItems: []
+      items: []
     }
   },
   watch: {
     item: {
       handler(nv) {
-        if (nv.selectItems) {
-          this.selectItems = nv.selectItems
+        if (nv.items) {
+          this.items = nv.items
         }
         this.$emit('event')
       },
@@ -49,8 +49,8 @@ export default {
   },
   props: ['item', 'allShow'],
   created() {
-    if (this.item.selectItems) {
-      this.selectItems = this.item.selectItems
+    if (this.item.items) {
+      this.items = this.item.items
     }
   },
   methods: {

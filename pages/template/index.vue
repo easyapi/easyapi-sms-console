@@ -24,13 +24,13 @@
                   <span>{{ item.title }}</span>
                 </div>
                 <div class='template-card-content'>
-                  <div v-if='item.state==0' class='types types-df'>
+                  <div v-if='item.state===0' class='types types-df'>
                     <span>审核中</span>
                   </div>
-                  <div v-if='item.state==1' class='types types-success'>
+                  <div v-if='item.state===1' class='types types-success'>
                     <span>审核成功</span>
                   </div>
-                  <div v-if='item.state==-1' class='types types-wrong'>
+                  <div v-if='item.state===-1' class='types types-wrong'>
                     <span>未<br />通过</span>
                   </div>
                   <p class='color-gray f12 t-c time'>短信/彩信<br>最后编辑
