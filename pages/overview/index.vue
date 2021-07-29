@@ -84,21 +84,17 @@ export default {
   },
   methods: {
     getSmsSummayList() {
-      let params = {
-        appKey: 'db8b8b8202f2c8c7',
-        appSecret: '99d2703f5fbb160c'
-      }
+      let params = {}
       getSmsSummayList(params, this).then(res => {
-
       })
     },
     change(e) {
-      if (e == 'day') {
+      if (e === 'day') {
         this.chartShow = true
         this.$nextTick(() => {
           this.getRecentlyChart()
         })
-      } else if (e == 'month') {
+      } else if (e === 'month') {
         this.chartShow = false
         this.$nextTick(() => {
           this.getMonthChart()
@@ -259,8 +255,6 @@ export default {
       let page = this.pagination.page - 1
       let params = {
         title: this.title,
-        appKey: sessionStorage.getItem('appKey'),
-        appSecret: sessionStorage.getItem('appSecret'),
         page: page,
         size: this.pagination.size,
         type: '文章'

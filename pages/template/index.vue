@@ -105,8 +105,7 @@ export default {
     getSmsTemplateList() {
       let page = this.pagination.page - 1
       let params = {
-        appKey: 'db8b8b8202f2c8c7',
-        appSecret: '99d2703f5fbb160c',
+        sort: 'addTime,desc',
         page: page,
         size: this.pagination.size
       }

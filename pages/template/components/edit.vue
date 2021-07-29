@@ -84,12 +84,8 @@
     methods: {
       //获取签名列表
       getSmsSignatureList() {
-        let params = {
-          appKey: "db8b8b8202f2c8c7",
-          appSecret: "99d2703f5fbb160c",
-        }
+        let params = {}
         getSmsSignatureList(params, this).then(res => {
-
         })
       },
       //移除标签
@@ -99,13 +95,8 @@
       confirm(formName) {
         this.$refs[formName].validate(valid => {
           if (valid) {
-            let data = {
-              ...this.childForm,
-              appKey: "db8b8b8202f2c8c7",
-              appSecret: "99d2703f5fbb160c",
-            }
+            let data = { ...this.childForm, }
             // data.signature = "【" + this.childForm.signature + "】"
-            console.log(data, 111)
             if (this.title === "创建新模板") {
               createSmsTemplate(data, this).then(res => {
                 console.log(data)

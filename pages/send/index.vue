@@ -153,8 +153,6 @@ export default {
       let page = this.pagination.page - 1
       let params = {
         title: this.title,
-        appKey: sessionStorage.getItem('appKey'),
-        appSecret: sessionStorage.getItem('appSecret'),
         page: page,
         size: this.pagination.size,
         type: '文章'
