@@ -1,8 +1,11 @@
 <template>
-  <div class='sidebar'>
-    <div class='menu' v-for='(menu, index) in menuList' :key='index'>
-      <nuxt-link :to='menu.path' :class="activePath === menu.path ? 'menu-item menu-item_active' : 'menu-item'">
-        <i :class='menu.icon'></i>
+  <div class="sidebar">
+    <div class="menu" v-for="(menu, index) in menuList" :key="index">
+      <nuxt-link
+        :to="menu.path"
+        :class="activePath === menu.path ? 'menu-item_active' : 'menu-item'"
+      >
+        <i :class="menu.icon"></i>
         <span>{{ menu.title }}</span>
       </nuxt-link>
     </div>
@@ -19,38 +22,38 @@ export default {
         {
           title: '短信概览',
           path: '/overview',
-          icon: 'el-icon-s-help'
+          icon: 'el-icon-s-help',
         },
         {
           title: '短信模板',
           path: '/template',
-          icon: 'el-icon-s-help'
+          icon: 'el-icon-s-help',
         },
         {
           title: '短信收件箱',
           path: '/Inbox',
-          icon: 'el-icon-s-help'
+          icon: 'el-icon-s-help',
         },
         {
           title: '短信发送',
           path: '/send',
-          icon: 'el-icon-s-help'
+          icon: 'el-icon-s-help',
         },
         {
           title: '计费日志',
           path: '/billing',
-          icon: 'el-icon-s-help'
-        }
-      ]
+          icon: 'el-icon-s-help',
+        },
+      ],
     }
   },
   mounted() {
     this.activePath = this.$route.path ? `${this.$route.path}` : '/overview'
-  }
+  },
 }
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .sidebar {
   position: absolute;
   top: 10px;
@@ -59,12 +62,17 @@ export default {
   overflow: auto;
   padding-top: 20px;
   width: 200px;
-  background: #fff;
+  background: $-sidebar-bgColor;
 }
 
 .menu :hover {
-  color: #18c1d6;
-  background: #f4f4f4;
+  i {
+    color: $-menu-hover-color;
+  }
+  span {
+    color: $-menu-hover-color;
+  }
+  background: $-menu-hover-bgColor;
 }
 
 .menu-item {
@@ -73,19 +81,37 @@ export default {
   height: 56px;
   display: flex;
   align-items: center;
+  background: $-menu-bgColor;
 
   i {
     font-size: 18px;
     margin-right: 10px;
+    color: $-menu-color;
   }
 
   span {
     font-size: 14px;
+    color: $-menu-color;
   }
 }
 
 .menu-item_active {
-  color: #18c1d6;
-  background: #f2fbff;
+  padding: 0 20px;
+  width: 200px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  background: $-menu-active-bgColor;
+
+  i {
+    font-size: 18px;
+    margin-right: 10px;
+    color: $-menu-active-color;
+  }
+
+  span {
+    font-size: 14px;
+    color: $-menu-active-color;
+  }
 }
 </style>
