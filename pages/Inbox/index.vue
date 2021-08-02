@@ -167,7 +167,7 @@ export default {
   mounted() {
     this.getSmsReceiveList()
     // this.getMonthChart()
-    this.showHeader = this.comsys.showHeader
+    this.showHeader = this.theme.showHeader
   }
 }
 </script>

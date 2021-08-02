@@ -325,7 +325,7 @@ export default {
     this.getArticleList()
     this.getRecentlyChart()
     // this.getMonthChart()
-    this.showHeader = this.comsys.showHeader
+    this.showHeader = this.theme.showHeader
   }
 }
 </script>

@@ -27,7 +27,7 @@ module.exports = {
     '@/plugins/element-ui',
     '@/plugins/axios',
     '@/plugins/echarts',
-    { src: '@/plugins/commom.js', ssr: false },
+    { src: '@/plugins/common.js', ssr: false }
   ],
   /*
    ** Customize the progress bar color

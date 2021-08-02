@@ -148,7 +148,7 @@ export default {
   },
   mounted() {
     this.getSmsRecordList()
-    this.showHeader = this.comsys.showHeader
+    this.showHeader = this.theme.showHeader
   }
 }
 </script>

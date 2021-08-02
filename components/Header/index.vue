@@ -38,7 +38,7 @@ export default {
     }
   },
   mounted() {
-    this.showHeader = this.comsys.showHeader
+    this.showHeader = this.theme.showHeader
   },
 }
 </script>

@@ -172,7 +172,7 @@ export default {
   },
   mounted() {
     this.getSmsTemplateList()
-    this.showHeader = this.comsys.showHeader
+    this.showHeader = this.theme.showHeader
   }
 }
 </script>

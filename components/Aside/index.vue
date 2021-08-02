@@ -5,7 +5,7 @@
         :to="menu.path"
         :class="activePath === menu.path ? 'menu-item_active' : 'menu-item'"
       >
-        <i :class="menu.icon"></i>
+        <i :class="menu.icon" v-if="menuType == 0"></i>
         <span>{{ menu.title }}</span>
       </nuxt-link>
     </div>
@@ -18,6 +18,7 @@ export default {
   data() {
     return {
       activePath: '',
+      menuType: null,
       menuList: [
         {
           title: '短信概览',
@@ -49,6 +50,7 @@ export default {
   },
   mounted() {
     this.activePath = this.$route.path ? `${this.$route.path}` : '/overview'
+    this.menuType = this.theme.menuType
   },
 }
 </script>

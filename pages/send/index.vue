@@ -198,7 +198,7 @@ export default {
   mounted() {
     this.getArticleList()
     // this.getMonthChart()
-    this.showHeader = this.comsys.showHeader
+    this.showHeader = this.theme.showHeader
   }
 }
 </script>
