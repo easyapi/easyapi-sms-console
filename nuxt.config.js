@@ -17,7 +17,7 @@ module.exports = {
     script: [],
   },
   css: [
-    '@/assets/css/common.css',
+    '@/assets/scss/common.scss',
     '@/assets/scss/element-variables.scss',
     'quill/dist/quill.snow.css',
     'quill/dist/quill.bubble.css',

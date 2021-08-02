@@ -58,14 +58,14 @@ export default {
 <style scoped lang="scss">
 .sidebar {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  bottom: 10px;
+  top: $-sidebar-top + px;
+  left: $-sidebar-left + px;
+  bottom: $-sidebar-bottom + px;
   overflow: auto;
   padding-top: 20px;
   width: 200px;
   background: $-sidebar-bgColor;
-  border-radius: 10px;
+  border-radius: $-sidebar-radius + px;
 }
 
 .menu :hover {

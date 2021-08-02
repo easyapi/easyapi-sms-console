@@ -11,7 +11,8 @@ html,
 body,
 #__nuxt,
 #__layout {
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
+    Microsoft YaHei, SimSun, sans-serif;
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
   width: 100%;
@@ -110,7 +111,7 @@ img {
   overflow: auto;
   padding: 15px;
   background: #fff;
-  margin-left: 210px;
+  margin-left: (200 + $-sidebar-left) + px;
   border-radius: 10px;
 }
 
@@ -145,12 +146,9 @@ img {
 }
 
 .ea-info-btn {
-  margin-left: 24px!important;
+  margin-left: 24px !important;
 }
 
-.lala{
+.lala {
   color: #000;
 }
-
-
-
