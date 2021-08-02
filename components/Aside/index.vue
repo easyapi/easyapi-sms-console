@@ -63,6 +63,7 @@ export default {
   padding-top: 20px;
   width: 200px;
   background: $-sidebar-bgColor;
+  border-radius: 10px;
 }
 
 .menu :hover {

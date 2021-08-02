@@ -35,7 +35,8 @@ module.exports = {
   modules: ['@nuxtjs/axios', '@nuxtjs/style-resources'],
   axios: {},
   loading: {
-    color: '#3B8070',
+    color: '#18c1d6',
+    failedColor: '#18c1d6',
   },
   styleResources: {
     scss: './assets/scss/variables.scss',
