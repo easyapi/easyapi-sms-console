@@ -1,7 +1,7 @@
 <template>
   <div v-if="showHeader" class="header">
     <div class="header-title">
-      <p>API CMS</p>
+      <p>{{ title }}</p>
       <div>
         <el-dropdown trigger="click">
           <span class="el-dropdown-link">
@@ -33,12 +33,14 @@ export default {
   name: 'Header',
   data() {
     return {
+      title: '',
       showHeader: '',
       isActive: true,
     }
   },
   mounted() {
     this.showHeader = this.theme.showHeader
+    this.title = this.theme.title
   },
 }
 </script>
@@ -48,6 +50,7 @@ export default {
   width: 100%;
   background: $-header-bgColor;
   height: 50px;
+  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.1);
 }
 
 .header-title {
