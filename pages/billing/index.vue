@@ -6,12 +6,12 @@
       <div class="main">
         <div class="main-title" v-if="ifOutsideTitle">
           <div class="main-title_top mg-tp-20">
-            <b>短信收件箱</b>
+            <b>计费日志</b>
           </div>
         </div>
-        <div class="main-content">
+        <div :class="ifOutsideTitle ? 'main-content' : 'main-content max-height'">
           <div class="main-title" v-if="!ifOutsideTitle">
-            <div class="main-title_top"><b>短信收件箱</b></div>
+            <div class="main-title_top"><b>计费日志</b></div>
             <div class="main-title_line"></div>
           </div>
           <el-table

@@ -105,18 +105,18 @@ img {
 
 .main {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  right: 10px;
-  bottom: 10px;
+  top: $-container-main-top + px;
+  left: $-container-main-left + px;
+  right: $-container-main-right + px;
+  bottom: $-container-main-bottom + px;
   overflow: auto;
   margin-left: (200 + $-sidebar-left) + px;
 }
 
 .main-content {
-  border-radius: 10px;
+  border-radius: $-container-main-radius + px;
   padding: 20px 15px;
-  background-color: #fff;
+  background-color: $-container-main-bgColor;
 }
 
 .main-title {
@@ -134,6 +134,15 @@ img {
   height: 1px;
   background-color: #dcdfe6;
   margin-top: 20px;
+}
+
+.max-height {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
 }
 
 .mg-tp-20 {

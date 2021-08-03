@@ -9,7 +9,7 @@
             <b>短信模板</b>
           </div>
         </div>
-        <div class="main-content">
+        <div :class="ifOutsideTitle ? 'main-content' : 'main-content max-height'">
           <div class="main-title" v-if="!ifOutsideTitle">
             <div class="main-title_top">
               <b>短信模板</b>
