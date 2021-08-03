@@ -1,9 +1,19 @@
 <template>
   <div :class="allShow ? 'search-area all-show' : 'search-area'">
     <el-row>
-      <Item v-for='(item, index) in items' :key="index + (item.label || 'a')" :item='item'
-            v-show='item.show' :allShow='allShow' @event='event' @open='open' @search='search' @reset='reset'
-            :ref='item.key' />
+      <Item
+        v-for="(item, index) in items"
+        :key="index + (item.label || 'a')"
+        :item="item"
+        v-show="item.show"
+        :allShow="allShow"
+        :ifShow="ifShow"
+        @event="event"
+        @open="open"
+        @search="search"
+        @reset="reset"
+        :ref="item.key"
+      />
     </el-row>
   </div>
 </template>
@@ -14,35 +24,35 @@ export default {
   props: {
     items: {
       type: Array,
-      default: []
-    }
+      default: [],
+    },
   },
   data() {
     return {
       innerWidth: null,
       allShow: false,
-      btns: {
-        type: 'btns'
-      }
+      ifShow: false,
+      buttons: {
+        type: 'buttons',
+      },
     }
   },
   components: { Item },
-  created() {
-  },
+  created() {},
   mounted() {
     window.onresize = this.windowResize
     let innerWidth = window.innerWidth
     this.innerWidth = innerWidth
-    this.setSearchItems()
+    this.setItems()
   },
   methods: {
     windowResize(e) {
       this.innerWidth = e.target.innerWidth
-      this.setSearchItems()
+      this.setItems()
     },
     search() {
       let obj = {}
-      this.items.map(item => {
+      this.items.map((item) => {
         if (item.value) {
           obj[item.key] = item.value
         }
@@ -52,13 +62,13 @@ export default {
     reset() {
       let items = this.items
       let doms = []
-      items.map(item => {
+      items.map((item) => {
         if (item.key) {
           let dom = this.$refs[item.key]
           doms.push(dom)
         }
       })
-      doms.map(item => {
+      doms.map((item) => {
         let dom = item[0].$children[0].$children[0]
         if (dom.handleClear) {
           dom.handleClear()
@@ -66,46 +76,46 @@ export default {
           dom.reset()
         }
       })
-      items.forEach(item => {
+      items.forEach((item) => {
         item.value = null
       })
       this.items = items
     },
     open() {
       this.allShow = !this.allShow
-      this.setSearchItems()
+      this.setItems()
     },
     event(item) {
       let obj = {}
-      this.items.map(item => {
+      this.items.map((item) => {
         if (item.value) {
           obj[item.key] = item.value
         }
       })
       this.$emit('event', obj)
     },
-    setSearchItems() {
-      let { items, innerWidth, btns } = this
-      let index = items.findIndex(item => {
-        return item.type == 'btns'
+    setItems() {
+      let { items, innerWidth, buttons } = this
+      let index = items.findIndex((item) => {
+        return item.type === 'buttons'
       })
-      if (index != -1) {
+      if (index !== -1) {
         items.splice(index, 1)
       }
       let width = 0
       if (innerWidth >= 1600) {
-        items.splice(3, 0, { type: 'btns' })
+        items.splice(3, 0, { type: 'buttons' })
         width = 6
       } else if (innerWidth >= 992) {
-        items.splice(2, 0, { type: 'btns' })
+        items.splice(2, 0, { type: 'buttons' })
         width = 8
       } else {
-        items.splice(1, 0, { type: 'btns' })
+        items.splice(1, 0, { type: 'buttons' })
         width = 12
       }
 
       items.forEach((item, index) => {
-        if (item.size == 'large') {
+        if (item.size === 'large') {
           let befores = items.slice(0, index)
           let beforeWidth = befores.reduce((a, b) => {
             return a + (b.width || width)
@@ -120,9 +130,9 @@ export default {
         if (this.allShow) {
           item.show = true
         } else {
-          if (width == 6) {
+          if (width === 6) {
             item.show = index <= 3
-          } else if (width == 8) {
+          } else if (width === 8) {
             item.show = index <= 2
           } else {
             item.show = index <= 1
@@ -130,8 +140,15 @@ export default {
         }
       })
       this.items = items
-    }
-  }
+      if (!this.allShow) {
+        if (this.items.findIndex((target) => target.show === false) == -1) {
+          this.ifShow = false
+        } else {
+          this.ifShow = true
+        }
+      }
+    },
+  },
 }
 </script>
 <style scoped>

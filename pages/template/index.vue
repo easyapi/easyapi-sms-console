@@ -1,66 +1,106 @@
 <template>
-  <div class='container'>
+  <div class="container">
     <Header></Header>
-    <div :class="showHeader ? 'content': 'contents'">
+    <div :class="showHeader ? 'content' : 'contents'">
       <Aside></Aside>
-      <div class='main'>
-        <div class='main-title'>
-          <div>
+      <div class="main">
+        <div class="main-title" v-if="ifOutsideTitle">
+          <div class="main-title_top mg-tp-20">
             <b>短信模板</b>
           </div>
-          <div>
-            <el-button type='primary' class='ea-info-btn' size='mini' @click='createTemplate'>
-              创建新模板
-            </el-button>
-          </div>
         </div>
-        <el-divider></el-divider>
-        <div class='main-content'>
-          <div class='item-list'>
-            <div class='item-list-card' v-for='item in templateList' :key='item' :span='6'>
-              <div class='template-card'>
-                <div class='header clearfix'>
+        <div class="main-content">
+          <div class="main-title" v-if="!ifOutsideTitle">
+            <div class="main-title_top">
+              <b>短信模板</b>
+              <el-button
+                type="primary"
+                class="ea-info-btn"
+                size="mini"
+                @click="createTemplate"
+              >
+                创建新模板
+              </el-button>
+            </div>
+            <div class="main-title_line"></div>
+          </div>
+
+          <div class="main-title" v-if="ifOutsideTitle">
+            <div class="main-title_top">
+              <el-button type="primary" size="mini" @click="createTemplate">
+                创建新模板
+              </el-button>
+            </div>
+            <div class="main-title_line"></div>
+          </div>
+
+          <div class="item-list">
+            <div
+              class="item-list-card"
+              v-for="item in templateList"
+              :key="item"
+              :span="6"
+            >
+              <div class="template-card">
+                <div class="header clearfix">
                   <span>•</span>
                   <span>{{ item.title }}</span>
                 </div>
-                <div class='template-card-content'>
-                  <div v-if='item.state===0' class='types types-df'>
+                <div class="template-card-content">
+                  <div v-if="item.state === 0" class="types types-df">
                     <span>审核中</span>
                   </div>
-                  <div v-if='item.state===1' class='types types-success'>
+                  <div v-if="item.state === 1" class="types types-success">
                     <span>审核成功</span>
                   </div>
-                  <div v-if='item.state===-1' class='types types-wrong'>
+                  <div v-if="item.state === -1" class="types types-wrong">
                     <span>未<br />通过</span>
                   </div>
-                  <p class='color-gray f12 t-c time'>短信/彩信<br>最后编辑
+                  <p class="color-gray f12 t-c time">
+                    短信/彩信<br />最后编辑
                     <time>{{ item.addTime }}</time>
                   </p>
-                  <div class='repbox'>
+                  <div class="repbox">
                     {{ item.signature }}{{ item.content }}
                   </div>
                 </div>
-                <div class='bottom clearfix'>
+                <div class="bottom clearfix">
                   <div>
-                    <el-button @click='updateTemplate(item)' type='primary' plain size='mini'>编辑</el-button>
-                    <el-button type='success' plain size='mini'>发送</el-button>
+                    <el-button
+                      @click="updateTemplate(item)"
+                      type="primary"
+                      plain
+                      size="mini"
+                      >编辑</el-button
+                    >
+                    <el-button type="success" plain size="mini">发送</el-button>
                   </div>
                   <div>
-                    <el-button type='info' plain size='mini' @click='deleteTemplate(item)'>删除</el-button>
+                    <el-button
+                      type="info"
+                      plain
+                      size="mini"
+                      @click="deleteTemplate(item)"
+                      >删除</el-button
+                    >
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          <Pagination
+            @fatherSize="fatherSize"
+            @fatherCurrent="fatherCurrent"
+            :size="pagination.size"
+            :total-elements="pagination.total"
+            class="paging"
+          ></Pagination>
+          <div style="clear: both"></div>
         </div>
-        <Pagination @fatherSize='fatherSize' @fatherCurrent='fatherCurrent' :size='pagination.size'
-                    :total-elements='pagination.total' class='paging'></Pagination>
-        <div style='clear: both'></div>
-        <Edit ref='editTemplate'></Edit>
+        <Edit ref="editTemplate"></Edit>
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -76,26 +116,31 @@ export default {
     Header,
     Aside,
     Pagination,
-    Edit
+    Edit,
   },
   data() {
     return {
+      ifOutsideTitle: false,
       templateList: [],
       showHeader: '',
       pagination: {
         page: 1,
         size: 12,
-        total: 0
-      }
+        total: 0,
+      },
     }
   },
   head() {
     return {
       title: '金融专辑 - EasyAPI服务市场',
       meta: [
-        { hid: 'description', name: 'description', content: '服务市场场景化服务' },
-        { hid: 'keyword', name: 'keyword', content: '服务市场场景化服务' }
-      ]
+        {
+          hid: 'description',
+          name: 'description',
+          content: '服务市场场景化服务',
+        },
+        { hid: 'keyword', name: 'keyword', content: '服务市场场景化服务' },
+      ],
     }
   },
   methods: {
@@ -107,19 +152,21 @@ export default {
       let params = {
         sort: 'addTime,desc',
         page: page,
-        size: this.pagination.size
+        size: this.pagination.size,
       }
-      getSmsTemplateList(params, this).then(res => {
-        if (res.data.code === 0) {
-          this.templateList = []
-          this.pagination.total = 0
-        } else {
-          this.templateList = res.data.content
-          this.pagination.total = Number(res.data.totalElements)
-        }
-      }).catch(error => {
-        console.log(error)
-      })
+      getSmsTemplateList(params, this)
+        .then((res) => {
+          if (res.data.code === 0) {
+            this.templateList = []
+            this.pagination.total = 0
+          } else {
+            this.templateList = res.data.content
+            this.pagination.total = Number(res.data.totalElements)
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     },
     /**
      * 添加新模板
@@ -147,14 +194,14 @@ export default {
       this.$confirm('您确定要删除该文章吗?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        type: 'warning'
+        type: 'warning',
       }).then(() => {
-        deleteSmsTemplate(item.smsTemplateId, this).then(res => {
+        deleteSmsTemplate(item.smsTemplateId, this).then((res) => {
           if (res.data.code === 1) {
             this.getSmsTemplateList()
             this.$message({
               type: 'success',
-              message: '删除成功!'
+              message: '删除成功!',
             })
           }
         })
@@ -168,16 +215,17 @@ export default {
     fatherCurrent(data) {
       this.pagination.page = data
       this.getSmsTemplateList()
-    }
+    },
   },
   mounted() {
     this.getSmsTemplateList()
     this.showHeader = this.theme.showHeader
-  }
+    this.ifOutsideTitle = this.theme.ifOutsideTitle
+  },
 }
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 .item-list {
   display: flex;
   flex-wrap: wrap;
@@ -185,7 +233,7 @@ export default {
   .template-card {
     width: 350px;
     height: 400px;
-    border: 1px solid #DCDFE6;
+    border: 1px solid #dcdfe6;
     margin-right: 40px;
     margin-bottom: 20px;
 
@@ -193,13 +241,13 @@ export default {
       width: 100%;
       height: 50px;
       padding: 10px;
-      border-bottom: 1px solid #DCDFE6;
+      border-bottom: 1px solid #dcdfe6;
     }
 
     .template-card-content {
       width: 100%;
       height: 300px;
-      border-bottom: 1px solid #DCDFE6;
+      border-bottom: 1px solid #dcdfe6;
       position: relative;
 
       .types {
@@ -262,7 +310,7 @@ export default {
       .repbox:after {
         right: -10px;
         top: 20px;
-        content: "";
+        content: '';
         position: absolute;
         width: 0;
         height: 0;
