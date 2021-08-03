@@ -14,6 +14,12 @@
             <div class="main-title_top"><b>短信收件箱</b></div>
             <div class="main-title_line"></div>
           </div>
+          <!-- <SearchArea
+            :items="searchItems"
+            @search="search"
+            @event="event"
+            @reset="reset"
+          /> -->
           <el-table
             v-loading="loading"
             :data="smsReceiveList"
@@ -49,6 +55,7 @@ import Header from '../../components/Header/index.vue'
 import Aside from '../../components/Aside/index.vue'
 import Pagination from '../../components/Pagination/index'
 import { getSmsReceiveList } from '../../api/sms-receive'
+import SearchArea from '../../components/SearchArea/index.vue'
 
 export default {
   name: '',
@@ -56,6 +63,7 @@ export default {
     Header,
     Aside,
     Pagination,
+    SearchArea,
   },
   data() {
     return {
@@ -70,6 +78,15 @@ export default {
         size: 12,
         total: 0,
       },
+      searchItems: [
+        // {
+        //   label: '日期',
+        //   type: 'datePicker',
+        //   key: 'makeDate',
+        //   pickerType: 'date',
+        //   format: 'yyyy-MM-dd',
+        // },
+      ],
     }
   },
   head() {
