@@ -2,8 +2,8 @@ import Cookies from 'js-cookie'
 
 export default function ({$axios, redirect}) {
   $axios.onRequest((config) => {
-    let token = Cookies.get('Authorization')
-    // token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ6aGFuZzIwMDg0QDEyNi5jb20iLCJhdXRoIjoiUk9MRV9BRE1JTiIsImV4cCI6MTYyNTk4MTE0M30.OmXmOKItKPKUXvz8HnAAzRQUczIgIkceiEsrqXyv2bd_C2FYA7cJ0wDVEIZx071jIxnQZN1sEi47K-8RWmbijQ'
+    // let token = Cookies.get('Authorization')
+    let token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ6aGFuZzIwMDg0QDEyNi5jb20iLCJhdXRoIjoiUk9MRV9BRE1JTiIsImV4cCI6MTYzMDQ4MDA4NX0.V8OK1zKzx9GJCc8_X8IMeabdDZYXL6_VX3h3z43LfUHkQt4v0wQoAz9Vimr1jCf88oWguEnCOsYG02snh1FoxA'
     if (token) {
       config.headers.Authorization = 'Bearer ' + token
     }

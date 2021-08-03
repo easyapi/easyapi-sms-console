@@ -14,23 +14,23 @@
           </nuxt-link>
         </div>
 
-        <div class="menu" v-if="menuType == 2">
-          <el-menu>
-            <el-menu-item v-if="!item.children" index="2">
-              <i :class="item.icon"></i>
-              <span slot="title">{{item.title}}</span>
-            </el-menu-item>
-            <el-submenu v-if="item.children">
-              <template slot="title">
-                <i :class="item.icon"></i>
-                <span>{{item.title}}</span>
-              </template>
-              <el-menu-item-group>
-                <el-menu-item v-for="(a, index) in item.children">{{a.title}}</el-menu-item>
-              </el-menu-item-group>
-            </el-submenu>
-          </el-menu>
-        </div>
+        <!--<div class="menu" v-if="menuType == 2">-->
+        <!--<el-menu>-->
+        <!--<el-menu-item v-if="!item.children" index="2">-->
+        <!--<i :class="item.icon"></i>-->
+        <!--<span slot="title">{{item.title}}</span>-->
+        <!--</el-menu-item>-->
+        <!--<el-submenu v-if="item.children">-->
+        <!--<template slot="title">-->
+        <!--<i :class="item.icon"></i>-->
+        <!--<span>{{item.title}}</span>-->
+        <!--</template>-->
+        <!--<el-menu-item-group>-->
+        <!--<el-menu-item v-for="(a, index) in item.children">{{a.title}}</el-menu-item>-->
+        <!--</el-menu-item-group>-->
+        <!--</el-submenu>-->
+        <!--</el-menu>-->
+        <!--</div>-->
 
 
       </div>
@@ -78,14 +78,12 @@
                 title: '短信发送',
                 path: '/send',
                 icon: 'el-icon-s-help',
-                children: [
-                  {
-                    title: '计费日志',
-                    path: '/billing',
-                    icon: 'el-icon-s-help',
-                  }
-                ]
               },
+              {
+                title: '计费日志',
+                path: '/billing',
+                icon: 'el-icon-s-help',
+              }
             ],
           },
         ],
