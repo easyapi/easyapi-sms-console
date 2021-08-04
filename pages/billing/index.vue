@@ -4,16 +4,12 @@
     <div :class="showHeader ? 'content' : 'contents'">
       <Aside></Aside>
       <div class="main">
-        <div class="main-title" v-if="ifOutsideTitle">
+        <div class="main-title">
           <div class="main-title_top mg-tp-20">
             <b>计费日志</b>
           </div>
         </div>
-        <div :class="ifOutsideTitle ? 'main-content' : 'main-content max-height'">
-          <div class="main-title" v-if="!ifOutsideTitle">
-            <div class="main-title_top"><b>计费日志</b></div>
-            <div class="main-title_line"></div>
-          </div>
+        <div class="main-content">
           <!-- <SearchArea
             :items="searchItems"
             @search="search"
@@ -64,11 +60,10 @@ export default {
     Header,
     Aside,
     Pagination,
-    SearchArea
+    SearchArea,
   },
   data() {
     return {
-      ifOutsideTitle: false,
       smsSummayList: [],
       loading: true,
       isShow: true,
@@ -172,7 +167,6 @@ export default {
   mounted() {
     this.getSmsRecordList()
     this.showHeader = this.theme.showHeader
-    this.ifOutsideTitle = this.theme.ifOutsideTitle
   },
 }
 </script>

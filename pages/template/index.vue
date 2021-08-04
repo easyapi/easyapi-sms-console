@@ -4,13 +4,8 @@
     <div :class="showHeader ? 'content' : 'contents'">
       <Aside></Aside>
       <div class="main">
-        <div class="main-title" v-if="ifOutsideTitle">
-          <div class="main-title_top mg-tp-20">
-            <b>短信模板</b>
-          </div>
-        </div>
-        <div :class="ifOutsideTitle ? 'main-content' : 'main-content max-height'">
-          <div class="main-title" v-if="!ifOutsideTitle">
+        <div class="main-content">
+          <div class="main-title">
             <div class="main-title_top">
               <b>短信模板</b>
               <el-button
@@ -19,15 +14,6 @@
                 size="mini"
                 @click="createTemplate"
               >
-                创建新模板
-              </el-button>
-            </div>
-            <div class="main-title_line"></div>
-          </div>
-
-          <div class="main-title" v-if="ifOutsideTitle">
-            <div class="main-title_top">
-              <el-button type="primary" size="mini" @click="createTemplate">
                 创建新模板
               </el-button>
             </div>
@@ -120,7 +106,6 @@ export default {
   },
   data() {
     return {
-      ifOutsideTitle: false,
       templateList: [],
       showHeader: '',
       pagination: {
@@ -220,7 +205,6 @@ export default {
   mounted() {
     this.getSmsTemplateList()
     this.showHeader = this.theme.showHeader
-    this.ifOutsideTitle = this.theme.ifOutsideTitle
   },
 }
 </script>
