@@ -27,7 +27,7 @@ module.exports = {
     '@/plugins/element-ui',
     '@/plugins/axios',
     '@/plugins/echarts',
-    { src: '@/plugins/common.js', ssr: false }
+    { src: '@/plugins/common.js', ssr: false },
   ],
   /*
    ** Customize the progress bar color
@@ -52,5 +52,9 @@ module.exports = {
   },
   server: {
     port: 7777, // default: 3000
+  },
+  env: {
+    baseUrl: 'https://account-api.easyapi.com',
+    serviceUrl: 'https://api.easyapi.com',
   },
 }
