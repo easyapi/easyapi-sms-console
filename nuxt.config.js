@@ -10,18 +10,18 @@ module.exports = {
       {
         hid: 'description',
         name: 'description',
-        content: '{{escape description }}',
-      },
+        content: '{{escape description }}'
+      }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
-    script: [],
+    script: []
   },
   css: [
     '@/assets/scss/common.scss',
     '@/assets/scss/element-variables.scss',
     'quill/dist/quill.snow.css',
     'quill/dist/quill.bubble.css',
-    'quill/dist/quill.core.css',
+    'quill/dist/quill.core.css'
   ],
   plugins: [
     '@/plugins/element-ui',
@@ -33,24 +33,28 @@ module.exports = {
    ** Customize the progress bar color
    */
   modules: ['@nuxtjs/axios', '@nuxtjs/style-resources'],
+  router: {
+    base: '/console/'
+  },
   axios: {},
   loading: {
     color: '#18c1d6',
-    failedColor: '#18c1d6',
+    failedColor: '#18c1d6'
   },
   styleResources: {
-    scss: './assets/scss/variables.scss',
+    scss: './assets/scss/variables.scss'
   },
   /*
    ** Build configuration
    */
   build: {
     transpile: [/^element-ui/, 'vue-quill-editor'],
-    extend(config, ctx) {},
+    extend(config, ctx) {
+    },
     maxChunkSize: 300000, // 单个包最大尺寸
-    extractCSS: true, // 单独提取CSS
+    extractCSS: true // 单独提取CSS
   },
   server: {
-    port: 7777, // default: 3000
-  },
+    port: 3000
+  }
 }
