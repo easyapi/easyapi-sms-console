@@ -4,7 +4,7 @@
  * @see https://www.easyai.com
  */
 export const getSmsRecordList = (params, context) => {
-  return context.$axios.get(`${process.env.serviceUrl}/sms/records`, {params: {...params}})
+  return context.$axios.get(`${process.env.BASE_URL}/sms/records`, {params: {...params}})
 };
 
 
@@ -14,7 +14,7 @@ export const getSmsRecordList = (params, context) => {
  * @see https://www.easyai.com
  */
 export const getSmsRecord = (id, context) => {
-  return context.$axios.get(`${process.env.serviceUrl}/sms/record/${id}`)
+  return context.$axios.get(`${process.env.BASE_URL}/sms/record/${id}`)
 };
 
 

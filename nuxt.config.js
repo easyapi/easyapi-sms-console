@@ -7,11 +7,7 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      {
-        hid: 'description',
-        name: 'description',
-        content: '{{escape description }}'
-      }
+      { hid: 'description', name: 'description', content: '{{escape description }}' }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     script: []
@@ -58,7 +54,8 @@ module.exports = {
     port: 3000
   },
   env: {
-    baseUrl: 'https://account-api.easyapi.com',
-    serviceUrl: 'https://api.easyapi.com'
+    BASE_URL: process.env.BASE_URL,
+    NODE_ENV: process.env.NODE_ENV,
+    accountUrl: 'https://account-api.easyapi.com'
   }
 }

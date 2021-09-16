@@ -31,8 +31,7 @@ $ npm run generate
 
 ``` bash
  ├──.nuxt               #
- ├──api                 #api接口目录
- │  ├──api.js           #api接口列表
+ ├──api                 #API接口目录
  ├──assets              #资源目录，用于组织未编译的静态资源如STYLUS LESS、SASS 或 JavaScript
  │  ├──css              #css样式
  │  ├──images           #图片

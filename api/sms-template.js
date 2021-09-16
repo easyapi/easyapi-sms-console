@@ -4,7 +4,7 @@
  * @see https://www.easyai.com
  */
 export const getSmsTemplateList = (params, context) => {
-    return context.$axios.get(`${process.env.serviceUrl}/sms/templates`, {params: {...params}})
+    return context.$axios.get(`${process.env.BASE_URL}/sms/templates`, {params: {...params}})
   };
 
 /**
@@ -13,7 +13,7 @@ export const getSmsTemplateList = (params, context) => {
  * @see https://www.easyai.com
  */
 export const getSmsSignatureList = (params, context) => {
-  return context.$axios.get(`${process.env.serviceUrl}/sms/signatures`, {params: {...params}})
+  return context.$axios.get(`${process.env.BASE_URL}/sms/signatures`, {params: {...params}})
 };
 
 

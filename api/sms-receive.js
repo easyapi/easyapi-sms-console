@@ -4,7 +4,7 @@
  * @see https://www.easyai.com
  */
 export const getSmsReceiveList = (params, context) => {
-  return context.$axios.get(`${process.env.serviceUrl}/sms/receives`, {params: {...params}})
+  return context.$axios.get(`${process.env.BASE_URL}/sms/receives`, {params: {...params}})
 };
 
 
@@ -14,5 +14,5 @@ export const getSmsReceiveList = (params, context) => {
  * @see https://www.easyai.com
  */
 export const getSmsReceive = (id, context) => {
-  return context.$axios.get(`${process.env.serviceUrl}/sms/receive/${id}`)
+  return context.$axios.get(`${process.env.BASE_URL}/sms/receive/${id}`)
 };

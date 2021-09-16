@@ -4,7 +4,7 @@
  * @see https://www.easyai.com
  */
 export const getSmsSummayList = (params, context) => {
-  return context.$axios.get(`${process.env.serviceUrl}/api/summaries`, {
+  return context.$axios.get(`${process.env.BASE_URL}/api/summaries`, {
     params: { ...params },
   })
 }
@@ -15,5 +15,5 @@ export const getSmsSummayList = (params, context) => {
  * @see https://www.easyai.com
  */
 export const getSmsSummay = (id, context) => {
-  return context.$axios.get(`${process.env.serviceUrl}/sms/summary/${id}`)
+  return context.$axios.get(`${process.env.BASE_URL}/sms/summary/${id}`)
 }
