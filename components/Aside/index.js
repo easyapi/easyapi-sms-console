@@ -10,11 +10,11 @@ export default {
           children: [
             {
               title: '短信概览',
-              path: '/overview',
+              path: '/',
               icon: 'el-icon-s-help',
               children: []
-            },
-          ],
+            }
+          ]
         },
         {
           title: '测试配置',
@@ -24,15 +24,15 @@ export default {
               path: '/template',
               icon: 'el-icon-s-help',
               children: []
-            },
-          ],
+            }
+          ]
         },
         {
           title: '其他配置',
           children: [
             {
               title: '短信收件箱',
-              path: '/Inbox',
+              path: '/receive',
               icon: 'el-icon-s-help',
               children: []
             },
@@ -44,7 +44,7 @@ export default {
             },
             {
               title: '计费日志',
-              path: '/billing',
+              path: '/record',
               icon: 'el-icon-s-help',
               children: [
                 {
@@ -54,25 +54,23 @@ export default {
                 {
                   title: '测试2',
                   path: '/456'
-                },
+                }
               ]
             }
-          ],
-        },
-      ],
+          ]
+        }
+      ]
     }
   },
   methods: {
     handleSelectMenu(key, keyPath) {
-      console.log(key);
-      console.log(keyPath);
-      let path = keyPath[0];
-      this.$router.push({path: path});
-    },
+      let path = keyPath[0]
+      this.$router.push({ path: path })
+    }
   },
   mounted() {
     this.activePath = this.$route.path ? `${this.$route.path}` : '/overview'
     this.menuType = this.theme.menuType
-  },
+  }
 }
 
