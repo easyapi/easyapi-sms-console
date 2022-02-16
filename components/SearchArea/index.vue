@@ -2,17 +2,17 @@
   <div :class="allShow ? 'search-area all-show' : 'search-area'">
     <el-row>
       <Item
-        v-for="(item, index) in items"
+        v-for='(item, index) in items'
         :key="index + (item.label || 'a')"
-        :item="item"
-        v-show="item.show"
-        :allShow="allShow"
-        :ifShow="ifShow"
-        @event="event"
-        @open="open"
-        @search="search"
-        @reset="reset"
-        :ref="item.key"
+        :item='item'
+        v-show='item.show'
+        :allShow='allShow'
+        :ifShow='ifShow'
+        @event='event'
+        @open='open'
+        @search='search'
+        @reset='reset'
+        :ref='item.key'
       />
     </el-row>
   </div>
@@ -24,8 +24,8 @@ export default {
   props: {
     items: {
       type: Array,
-      default: [],
-    },
+      default: []
+    }
   },
   data() {
     return {
@@ -33,12 +33,13 @@ export default {
       allShow: false,
       ifShow: false,
       buttons: {
-        type: 'buttons',
-      },
+        type: 'buttons'
+      }
     }
   },
   components: { Item },
-  created() {},
+  created() {
+  },
   mounted() {
     window.onresize = this.windowResize
     let innerWidth = window.innerWidth
@@ -147,8 +148,8 @@ export default {
           this.ifShow = true
         }
       }
-    },
-  },
+    }
+  }
 }
 </script>
 <style scoped>

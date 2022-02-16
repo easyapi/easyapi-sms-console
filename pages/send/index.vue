@@ -139,14 +139,10 @@ export default {
   },
   head() {
     return {
-      title: '金融专辑 - EasyAPI服务市场',
+      title: '短信发送 - EasyAPI短信服务',
       meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: '服务市场场景化服务',
-        },
-        { hid: 'keyword', name: 'keyword', content: '服务市场场景化服务' },
+        { hid: 'description', name: 'description', content: '短信发送', },
+        { hid: 'keyword', name: 'keyword', content: '短信发送' },
       ],
     }
   },

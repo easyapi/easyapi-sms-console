@@ -1,5 +1,5 @@
 {
-  "name": "easyapi--console",
+  "name": "easyapi-sms-console",
   "version": "1.0.0",
   "description": "EasyAPI短信服务控制台",
   "author": "EasyAPI <leida@easyapi.com>",
@@ -10,23 +10,24 @@
     "url": "git+https://github.com/easyapi/easyapi-sms-console.git"
   },
   "scripts": {
-    "dev": "nuxt --open",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate",
+    "dev": "cross-env BASE_URL=https://api.easyapi.com NODE_ENV=development nuxt",
+    "build": "cross-env BASE_URL=https://api.easyapi.com NODE_ENV=production nuxt build",
+    "start": "cross-env BASE_URL=https://api.easyapi.com NODE_ENV=production PORT=8830 nuxt start",
+    "generate": "cross-env BASE_URL=https://api.easyapi.com NODE_ENV=production nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "precommit": "npm run lint"
+    "precommit": "npm run lint",
+    "pm2": "pm2 delete easyapi-sms-console \n pm2 start npm --name 'easyapi-sms-console' -- run start"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
-    "echarts": "^5.1.2",
-    "element-ui": "^2.15.5",
-    "js-cookie": "^3.0.0",
-    "nuxt": "^2.15.7",
+    "echarts": "^5.2.0",
+    "element-ui": "^2.15.6",
+    "js-cookie": "^3.0.1",
+    "nuxt": "^2.15.8",
     "vue-quill-editor": "^3.0.6"
   },
   "devDependencies": {
-    "@nuxtjs/style-resources": "^1.2.0",
+    "@nuxtjs/style-resources": "^1.2.1",
     "@nuxtjs/eslint-config": "^6.0.1",
     "@nuxtjs/eslint-module": "^3.0.2",
     "@nuxtjs/proxy": "^2.1.0",
@@ -34,17 +35,18 @@
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-standard": ">=16.0.3",
-    "eslint-plugin-import": ">=2.23.4",
+    "eslint-plugin-import": ">=2.24.2",
     "eslint-plugin-jest": ">=24.4.0",
     "eslint-plugin-node": ">=11.1.0",
     "eslint-plugin-nuxt": ">=2.0.0",
-    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-promise": ">=5.1.0",
     "eslint-plugin-standard": ">=5.0.0",
-    "eslint-plugin-vue": "^7.15.1",
+    "eslint-plugin-vue": "^7.17.0",
     "node-sass": "^6.0.1",
     "sass-loader": "^10.2.0",
     "nodemon": "^2.0.12",
-    "prettier": "^2.3.2"
+    "cross-env": "^7.0.3",
+    "prettier": "^2.4.0"
   }
 }
